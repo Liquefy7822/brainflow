@@ -1,21 +1,91 @@
-# React + TypeScript + Vite
+# BrainFlow 🧠
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A session-based, brain-inspired note app for visual thinking.
 
-While this project uses React, Vite supports many popular JS frameworks. [See all the supported frameworks](https://vitejs.dev/guide/#scaffolding-your-first-vite-project).
+BrainFlow is an experimental web app designed around how people actually think — in messy, time-based, interconnected ideas rather than rigid folders and documents.
 
-## Deploy Your Own
+Every time you open the app, a new thinking session begins.  
+Sessions can be linked visually like a mind map to reflect how thoughts naturally connect.
 
-Deploy your own Vite project with Vercel.
+---
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/framework-boilerplates/vite-react&template=vite-react)
+## ✨ Core Idea
 
-_Live Example: https://vite-react-example.vercel.app_
+Most note apps focus on organization first.  
+BrainFlow focuses on **thinking first**.
 
-### Deploying From Your Terminal
+- Thoughts are messy  
+- Ideas evolve over time  
+- Context matters  
+- Associations > categories  
 
-You can deploy your new Vite project with a single command from your terminal using [Vercel CLI](https://vercel.com/download):
+BrainFlow lets structure **emerge naturally** instead of forcing it.
 
-```shell
-$ vercel
-```
+---
+
+## 🚀 Features (MVP)
+
+- Automatic session creation  
+- Freeform note writing  
+- Timeline of past sessions  
+- Visual linking between sessions  
+- Brain map view (mind-map style)  
+- Optional tags (Study, Ideas, Projects, etc.)  
+
+Planned:
+- Mood tracking  
+- AI summaries  
+- Suggested links  
+- Pattern detection  
+- Collaboration  
+
+---
+
+## 🛠 Tech Stack
+
+Frontend:
+- Vite + React  
+- Tailwind CSS  
+- Framer Motion  
+- React Flow (for mind maps)  
+
+Backend (planned):
+- Supabase (Auth + Database)
+
+Deployment:
+- Vercel  
+
+---
+
+## 📸 Preview
+
+(Coming soon)
+
+---
+
+## 🧠 Philosophy
+
+This is not a productivity app.  
+This is a **thinking space**.
+
+Messy first.  
+Structure later.
+
+---
+
+## 🧪 Project Status
+
+Early-stage MVP  
+Built as a passion project by a small team.
+
+---
+
+## 🤝 Contributing
+
+This project is still experimental, but ideas and feedback are welcome.
+
+---
+
+## 📄 License
+
+MIT
