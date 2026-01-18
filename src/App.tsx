@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import LongNote from "./components/LongNote";
 
-// ShortSession component stays the same
+// ShortSession component remains the same
 function ShortSession({ text, onChange }: { text: string; onChange: (val: string) => void }) {
   return (
     <div className="session p-4 bg-gray-800 text-white rounded-lg shadow-md max-w-3xl w-full mx-auto my-4">
@@ -56,17 +56,11 @@ function App() {
 
       {/* Long Note */}
       {mode === "long" && (
-        <>
-          <header className="text-center py-4 border-b border-gray-800">
-            <button
-              onClick={() => setMode("landing")}
-              className="text-indigo-400 hover:underline"
-            >
-              ← Back
-            </button>
-          </header>
-          <LongNote content={longContent} onChange={setLongContent} />
-        </>
+        <LongNote
+          content={longContent}
+          onChange={setLongContent}
+          onBack={() => setMode("landing")}
+        />
       )}
 
       {/* Short Note */}
