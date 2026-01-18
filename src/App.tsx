@@ -4,24 +4,53 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 // TipTap editor component
-function TiptapEditor({ content, setContent }: { content: string; setContent: (val: string) => void }) {
+function TiptapEditor({
+  content,
+  setContent,
+  onBack,
+}: {
+  content: string;
+  setContent: (val: string) => void;
+  onBack: () => void;
+}) {
   const editor = useEditor({
     extensions: [StarterKit],
-    content: content,
+    content: content || "<p><br></p>", // ensures cursor starts at top
+    autofocus: true,
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
     },
   });
 
   return (
-    <div className="tiptap-container prose prose-invert max-w-4xl mx-auto p-8 bg-gray-900 text-white rounded-md">
-      <EditorContent editor={editor} />
+    <div className="flex flex-col min-h-screen bg-gray-900 text-white">
+      {/* Back Button */}
+      <button
+        onClick={onBack}
+        className="fixed top-4 left-4 z-10 text-indigo-400 hover:text-indigo-300 font-semibold px-4 py-2 rounded-md border border-indigo-400 hover:border-indigo-300 transition"
+      >
+        ← Back
+      </button>
+
+      {/* Full-page editor */}
+      <div className="flex-1 p-8 overflow-auto">
+        <EditorContent
+          editor={editor}
+          className="w-full h-full prose prose-invert outline-none"
+        />
+      </div>
     </div>
   );
 }
 
-// ShortSession (unchanged)
-function ShortSession({ text, onChange }: { text: string; onChange: (val: string) => void }) {
+// Short note session component
+function ShortSession({
+  text,
+  onChange,
+}: {
+  text: string;
+  onChange: (val: string) => void;
+}) {
   return (
     <div className="session p-4 bg-gray-800 text-white rounded-lg shadow-md max-w-3xl w-full mx-auto my-4">
       <textarea
@@ -34,6 +63,7 @@ function ShortSession({ text, onChange }: { text: string; onChange: (val: string
   );
 }
 
+// Main App
 function App() {
   const [mode, setMode] = useState<"landing" | "short" | "long">("landing");
   const [shortSessions, setShortSessions] = useState<string[]>([""]);
@@ -72,20 +102,13 @@ function App() {
         </div>
       )}
 
-      {/* Long Note with TipTap */}
+      {/* Long Note */}
       {mode === "long" && (
-        <>
-          <header className="flex justify-between p-4 border-b border-gray-800">
-            <button
-              onClick={() => setMode("landing")}
-              className="text-indigo-400 hover:text-indigo-300 font-semibold px-4 py-2 rounded-md border border-indigo-400 hover:border-indigo-300 transition"
-            >
-              ← Back
-            </button>
-          </header>
-
-          <TiptapEditor content={longContent} setContent={setLongContent} />
-        </>
+        <TiptapEditor
+          content={longContent}
+          setContent={setLongContent}
+          onBack={() => setMode("landing")}
+        />
       )}
 
       {/* Short Notes */}
