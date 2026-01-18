@@ -19,7 +19,7 @@ function ShortSession({ text, onChange }: { text: string; onChange: (val: string
 function App() {
   const [mode, setMode] = useState<"landing" | "short" | "long">("landing");
   const [shortSessions, setShortSessions] = useState<string[]>([""]);
-  const [longNote, setLongNote] = useState("");
+  const [longContent, setLongContent] = useState("");
 
   const addShortSession = () => setShortSessions([...shortSessions, ""]);
   const updateShortSession = (idx: number, val: string) => {
@@ -65,7 +65,7 @@ function App() {
               ← Back
             </button>
           </header>
-          <LongNote text={longNote} onChange={setLongNote} />
+          <LongNote content={longContent} onChange={setLongContent} />
         </>
       )}
 
