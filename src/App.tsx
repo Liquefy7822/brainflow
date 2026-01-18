@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./App.css";
+import LongNote from "./components/LongNote";
 
-// Short session component (mini note)
+// ShortSession component stays the same
 function ShortSession({ text, onChange }: { text: string; onChange: (val: string) => void }) {
   return (
     <div className="session p-4 bg-gray-800 text-white rounded-lg shadow-md max-w-3xl w-full mx-auto my-4">
@@ -15,27 +16,9 @@ function ShortSession({ text, onChange }: { text: string; onChange: (val: string
   );
 }
 
-// Long note component (full-page note)
-function LongNote({ text, onChange }: { text: string; onChange: (val: string) => void }) {
-  return (
-    <div className="long-note flex-1 p-8 bg-gray-900 text-white">
-      <textarea
-        value={text}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder="Start your long note..."
-        className="w-full h-[80vh] p-4 rounded-md bg-gray-800 text-white resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg"
-      />
-    </div>
-  );
-}
-
 function App() {
-  // 'landing', 'short', 'long'
   const [mode, setMode] = useState<"landing" | "short" | "long">("landing");
-
-  // Short sessions state
   const [shortSessions, setShortSessions] = useState<string[]>([""]);
-  // Long note state
   const [longNote, setLongNote] = useState("");
 
   const addShortSession = () => setShortSessions([...shortSessions, ""]);
@@ -47,7 +30,7 @@ function App() {
 
   return (
     <div className="bg-gray-950 min-h-screen flex flex-col">
-      {/* Landing / choice page */}
+      {/* Landing */}
       {mode === "landing" && (
         <div className="flex flex-col items-center justify-center flex-1 p-8 text-center">
           <h1 className="text-4xl font-bold text-white mb-4">BrainFlow 🧠</h1>
@@ -71,7 +54,7 @@ function App() {
         </div>
       )}
 
-      {/* Long note page */}
+      {/* Long Note */}
       {mode === "long" && (
         <>
           <header className="text-center py-4 border-b border-gray-800">
@@ -81,13 +64,12 @@ function App() {
             >
               ← Back
             </button>
-            <h2 className="text-2xl font-bold text-white mt-2">Long Note</h2>
           </header>
           <LongNote text={longNote} onChange={setLongNote} />
         </>
       )}
 
-      {/* Short note page */}
+      {/* Short Note */}
       {mode === "short" && (
         <>
           <header className="text-center py-8 border-b border-gray-800">
