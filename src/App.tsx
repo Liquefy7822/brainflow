@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+// Simple Session component
+function Session() {
+  const [text, setText] = useState("");
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="session p-4 bg-gray-900 text-white rounded-md shadow-md max-w-3xl mx-auto my-4">
+      <h2 className="text-xl font-semibold mb-2">New Session</h2>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Start thinking..."
+        className="w-full h-60 p-2 rounded-md bg-gray-800 text-white resize-none focus:outline-none"
+      />
+    </div>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <div className="bg-gray-950 min-h-screen p-4">
+      <header className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-white">BrainFlow 🧠</h1>
+        <p className="text-gray-400 mt-2">
+          A session-based, brain-inspired note app
+        </p>
+      </header>
+
+      {/* First session */}
+      <Session />
+
+      {/* Placeholder for future sessions */}
+      <Session />
+    </div>
+  );
+}
+
+export default App;
