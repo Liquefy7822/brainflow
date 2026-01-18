@@ -1,5 +1,3 @@
-import { useRef, useEffect } from "react";
-
 type LongNoteProps = {
   content: string;
   onChange: (val: string) => void;
@@ -7,19 +5,9 @@ type LongNoteProps = {
 };
 
 export default function LongNote({ content, onChange, onBack }: LongNoteProps) {
-  const editorRef = useRef<HTMLDivElement>(null);
-
-  // Initialize content
-  useEffect(() => {
-    if (editorRef.current && content) {
-      editorRef.current.innerText = content;
-    }
-  }, [content]);
-
-  const handleInput = () => {
-    if (editorRef.current) {
-      onChange(editorRef.current.innerText);
-    }
+  const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+    onChange(target.innerText);
   };
 
   return (
@@ -36,17 +24,19 @@ export default function LongNote({ content, onChange, onBack }: LongNoteProps) {
         <div className="w-24"></div> {/* empty space to balance layout */}
       </header>
 
-      {/* Editable area */}
+      {/* Full-page content editable area */}
       <div
-        ref={editorRef}
         onInput={handleInput}
         contentEditable
         suppressContentEditableWarning
         spellCheck={true}
         className="flex-1 p-8 prose prose-invert max-w-4xl mx-auto outline-none overflow-auto"
       >
-        {/* If empty, show a faint hint */}
-        {!content && <p className="text-gray-500">Start typing your long note… Use Markdown syntax freely.</p>}
+        {content || (
+          <p className="text-gray-500">
+            Start typing your long note… Use Markdown syntax freely.
+          </p>
+        )}
       </div>
     </div>
   );
