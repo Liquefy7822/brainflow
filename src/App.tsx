@@ -1,8 +1,26 @@
 import { useState } from "react";
 import "./App.css";
-import LongNote from "./components/LongNote";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
-// ShortSession component remains the same
+// TipTap editor component
+function TiptapEditor({ content, setContent }: { content: string; setContent: (val: string) => void }) {
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: content,
+    onUpdate: ({ editor }) => {
+      setContent(editor.getHTML());
+    },
+  });
+
+  return (
+    <div className="tiptap-container prose prose-invert max-w-4xl mx-auto p-8 bg-gray-900 text-white rounded-md">
+      <EditorContent editor={editor} />
+    </div>
+  );
+}
+
+// ShortSession (unchanged)
 function ShortSession({ text, onChange }: { text: string; onChange: (val: string) => void }) {
   return (
     <div className="session p-4 bg-gray-800 text-white rounded-lg shadow-md max-w-3xl w-full mx-auto my-4">
@@ -23,14 +41,14 @@ function App() {
 
   const addShortSession = () => setShortSessions([...shortSessions, ""]);
   const updateShortSession = (idx: number, val: string) => {
-    const newSessions = [...shortSessions];
-    newSessions[idx] = val;
-    setShortSessions(newSessions);
+    const sessions = [...shortSessions];
+    sessions[idx] = val;
+    setShortSessions(sessions);
   };
 
   return (
     <div className="bg-gray-950 min-h-screen flex flex-col">
-      {/* Landing */}
+      {/* Landing Page */}
       {mode === "landing" && (
         <div className="flex flex-col items-center justify-center flex-1 p-8 text-center">
           <h1 className="text-4xl font-bold text-white mb-4">BrainFlow 🧠</h1>
@@ -54,16 +72,23 @@ function App() {
         </div>
       )}
 
-      {/* Long Note */}
+      {/* Long Note with TipTap */}
       {mode === "long" && (
-        <LongNote
-          content={longContent}
-          onChange={setLongContent}
-          onBack={() => setMode("landing")}
-        />
+        <>
+          <header className="flex justify-between p-4 border-b border-gray-800">
+            <button
+              onClick={() => setMode("landing")}
+              className="text-indigo-400 hover:text-indigo-300 font-semibold px-4 py-2 rounded-md border border-indigo-400 hover:border-indigo-300 transition"
+            >
+              ← Back
+            </button>
+          </header>
+
+          <TiptapEditor content={longContent} setContent={setLongContent} />
+        </>
       )}
 
-      {/* Short Note */}
+      {/* Short Notes */}
       {mode === "short" && (
         <>
           <header className="text-center py-8 border-b border-gray-800">
@@ -84,7 +109,11 @@ function App() {
 
           <main className="flex-1 overflow-y-auto p-4">
             {shortSessions.map((text, idx) => (
-              <ShortSession key={idx} text={text} onChange={(val) => updateShortSession(idx, val)} />
+              <ShortSession
+                key={idx}
+                text={text}
+                onChange={(val) => updateShortSession(idx, val)}
+              />
             ))}
           </main>
         </>
